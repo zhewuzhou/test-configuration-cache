@@ -7,18 +7,27 @@ import spock.lang.Specification
 
 class BuildLogicFunctionalTest extends Specification {
 
-    @Rule TemporaryFolder testProjectDir = new TemporaryFolder()
-    File buildFile
+    @Rule
+    TemporaryFolder testProjectDir = new TemporaryFolder()
+    File rootBuildFile
+    File subBuildFile
 
     def setup() {
         testProjectDir.newFile('settings.gradle') << ""
-        buildFile = testProjectDir.newFile('build.gradle')
+        def folder = testProjectDir.newFolder("abc")
+        subBuildFile = new File(folder.getAbsolutePath() + '/build.gradle')
+        rootBuildFile = testProjectDir.newFile('build.gradle')
+        subBuildFile << """
+            plugins {
+                id 'java'
+            }
+        """
     }
 
     // tag::functional-test-configuration-cache[]
     def "my task can be loaded from the configuration cache"() {
         given:
-        buildFile << """
+        rootBuildFile << """
             plugins {
                 id 'org.example.my-plugin'
             }
