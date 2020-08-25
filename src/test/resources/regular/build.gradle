@@ -1,0 +1,11 @@
+package regular
+
+plugins {
+    id("com.phodal.hworld")
+}
+
+//javaConventions {
+//    configure()
+//}
+//
+//javaConventions.sourceDir = "src/main/java"

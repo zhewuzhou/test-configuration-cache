@@ -14,3 +14,6 @@ method make use of that information.
 **gradle --configuration-cache**, this options is very useful when:
 1. Many end to end test cases that share the same configuration
 2. When you run gradle task again and again without the change of configuration
+
+# Create Tasks for Testings
+

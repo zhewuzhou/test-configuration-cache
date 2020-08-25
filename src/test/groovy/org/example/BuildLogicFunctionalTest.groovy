@@ -1,5 +1,6 @@
 package org.example
 
+import org.apache.commons.io.FileUtils
 import org.gradle.testkit.runner.GradleRunner
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
@@ -15,13 +16,12 @@ class BuildLogicFunctionalTest extends Specification {
     def setup() {
         testProjectDir.newFile('settings.gradle') << ""
         def folder = testProjectDir.newFolder("abc")
-        subBuildFile = new File(folder.getAbsolutePath() + '/build.gradle')
         rootBuildFile = testProjectDir.newFile('build.gradle')
-        subBuildFile << """
-            plugins {
-                id 'java'
-            }
-        """
+        def subProject = new File(getClass()
+            .getClassLoader()
+            .getResource('regular')
+            .getFile())
+        FileUtils.copyDirectoryToDirectory(subProject, folder)
     }
 
     // tag::functional-test-configuration-cache[]
